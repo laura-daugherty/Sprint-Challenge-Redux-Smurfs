@@ -20,7 +20,12 @@ export const FETCH_SMURFS_SUCCESS = "FETCH_SMURFS_SUCCESS"
 export const FETCH_SMURFS_FAILURE = "FETCH_SMURFS_FAILURE"
 export const ADD_SMURF = "ADD_SMURF"
 export const ADD_SMURF_FAILURE = "ADD_SMURF_FAILURE"
-// export const DELETE_SMURF = "DELETE_SMURF"
+export const DELETE_SMURF = "DELETE_SMURF"
+export const DELETE_SMURF_SUCCESS = "DELETE_SMURF_SUCCESS"
+export const DELETE_SMURF_FAILURE = "DELETE_SMURF_FAILURE"
+
+
+
 
 export const fetchSmurfs = () => dispatch => {
   dispatch({ type: FETCH_SMURFS_START });
@@ -48,17 +53,15 @@ export const addSmurf = newSmurf => dispatch => {
 };
 
 
-// export const deleteSmurf = (smurf, id) => dispatch => {
-
-//   console.log(smurf)
-//   dispatch({ type: DELETE_SMURF, payload: smurf.id });
-//   axios
-//     .delete(`http://localhost:3333/smurfs/:${id}`)
-//     // .then(res => {
-//     // })
-//     // .then(res => {
-//     //   this.setState({ smurfs: res.data })
-//     // })
-//     // .catch(err => console.log(err))
-  
-// }
+export const deleteSmurf = (id) => dispatch => {
+  dispatch({ type: DELETE_SMURF });
+  axios
+    .delete(`http://localhost:3333/smurfs/${id}`)
+    .then(res => {
+      console.log(res)
+      dispatch({ type: DELETE_SMURF_SUCCESS, payload: res.data})
+    })
+    .catch(err => {
+      dispatch({ type: DELETE_SMURF_FAILURE, })
+    })  
+}
